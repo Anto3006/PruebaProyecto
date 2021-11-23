@@ -290,6 +290,14 @@
     <Content Include="Scripts\FormularioCreacionDeCuestionarios.js" />
     <Content Include="JSON\lenguajes.json" />
     <Content Include="JSON\paises.json" />
+    <Content Include="Cuestionarios\Avanzado\Mide tu conocimiento.json" />
+    <Content Include="Cuestionarios\Avanzado\Prueba tu conocimiento sobre astronomía.json" />
+    <Content Include="Cuestionarios\Intermedio\Cuestionario Intermedio 1.json" />
+    <Content Include="Cuestionarios\Intermedio\Galaxias lejanas.json" />
+    <Content Include="Cuestionarios\Intermedio\Satélites del sistema solar.json" />
+    <Content Include="Cuestionarios\Principiante\Conceptos básicos del sistema solar.json" />
+    <Content Include="Cuestionarios\Principiante\Cuestionario Principiante 1.json" />
+    <None Include="Properties\PublishProfiles\PruebaElArbo - Web Deploy.pubxml" />
     <None Include="Scripts\jquery-3.5.1.intellisense.js" />
     <Content Include="Scripts\globalize.js" />
     <Content Include="Scripts\globalize\currency.js" />
