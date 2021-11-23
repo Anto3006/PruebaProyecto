@@ -288,8 +288,6 @@
     <Content Include="Scripts\Calendarios.js" />
     <Content Include="Scripts\FiltradorTopicos.js" />
     <Content Include="Scripts\FormularioCreacionDeCuestionarios.js" />
-    <Content Include="Scripts\jquery-3.4.1.js" />
-    <Content Include="Scripts\jquery-3.4.1.min.js" />
     <Content Include="JSON\lenguajes.json" />
     <Content Include="JSON\paises.json" />
     <None Include="Scripts\jquery-3.5.1.intellisense.js" />
