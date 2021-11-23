@@ -1,0 +1,172 @@
+﻿<html>
+<body>
+    <div class="row container-titulo-actividades">
+        <div class="col">
+            <h1>Talleres</h1>
+        </div>
+        <div class="col">
+
+            <form method="post">
+                <div class="row" style="float: right;">
+                    <div class="col">
+                        <input class="form-control" type="text" id="palabraClave" placeholder="Palabra clave" name="palabraClave" />
+                    </div>
+                    <div class="col">
+                        <input style="margin-top: 0;" type="submit" class="btn btn-primary boton-material" value="Buscar" />
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+    <hr />
+    <div id="container-actividades">
+
+        <script type="text/javascript">
+            function actualizarModal(titulo, fecha) {
+                document.getElementById("titulo").value = titulo;
+                document.getElementById("fecha").value = fecha;
+
+            }
+        </script>
+        @{
+            int indice = 0;
+            foreach (var taller in ViewBag.ListaTalleres)
+            {
+                <div class="card border-light mb-3 shadow p-3 mb-5 bg-white rounded" style="margin-bottom: 20px">
+                    <div class="card-body">
+                        <table class="table table-light">
+                            <tbody>
+                                <tr>
+                                    <td id="fila-informacion">
+                                        <h1>
+                                            <a href=@Url.Action("Actividad", "Actividad", new { nombre = taller.Titulo, fecha = taller.Fecha })>@taller.Titulo</a>
+                                        </h1>
+
+                                        <ul id="lista-actividades">
+                                            <li>
+                                                Categoría: @taller.Categoria
+                                            </li>
+                                            <li>
+                                                Tópicos:
+                                                @{
+                                                    var numeroTopico = taller.Topicos.Count - 1;
+                                                    var ultimoTopico = taller.Topicos[numeroTopico];
+                                                }
+                                                @foreach (var topico in taller.Topicos)
+                                                {
+                                                    @topico
+                                                    if (topico != ultimoTopico)
+                                                    {
+                                                        @:-
+                                                    }
+                                                }
+                                            </li>
+                                            <li>Precio: @taller.PrecioSugerido colones</li>
+                                            <li>Duración: @taller.Duracion minutos</li>
+                                            <li>Fecha de la charla: @taller.Fecha.ToString("dd/MM/yyyy")</li>
+                                            <li>Nivel de complejidad: @taller.NivelDeComplejidad</li>
+                                            <li>
+                                                Público meta:
+                                                @{
+                                                    var numeroPublicoMeta = taller.PublicoMeta.Count - 1;
+                                                    var ultimoPublicoMeta = taller.PublicoMeta[numeroPublicoMeta];
+                                                }
+                                                @foreach (var publicoMeta in taller.PublicoMeta)
+                                                {
+                                                    @publicoMeta
+                                                    if (publicoMeta != ultimoPublicoMeta)
+                                                    {
+                                                        @:-
+                                                    }
+                                                }
+                                            </li>
+                                        </ul>
+
+                                    </td>
+                                    <td id="columna-descripcion">
+                                        <h2>Descripción: </h2>
+                                        <p>@taller.Descripcion</p>
+
+
+                                    </td>
+                                </tr>
+                            <tbody>
+                        </table>
+                        <div class="row">
+                            <div class="col">
+                                @Html.ActionLink("Ver Materiales", "RecuperarMaterialesActividad", "Material", new { titulo = taller.Titulo, fecha = taller.Fecha }, new { @class = "btn btn-primary boton-actividades" })
+                            </div>
+                            <div class="col">
+                                <div class="btn-group">
+
+                                    <div class="dropdown dropdown-actividades">
+                                        <button class="btn btn-primary dropdown-toggle boton-actividades" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                            Inscribirse
+                                        </button>
+                                        <ul class="dropdown-menu dropdown-menu-dark bg-black">
+                                            <li><a class="dropdown-item active botones-paginacion page-link" href="@Url.Action("InscribirVisitante", "Visitante", new { titulo = taller.Titulo, fecha = taller.Fecha })">Visitante nuevo</a></li>
+                                            <li><a class="dropdown-item active" href="@Url.Action("InscribirEnActividad", "Visitante", new { titulo = taller.Titulo, fecha = taller.Fecha })">Visitante recurrente</a></li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col">
+                                @if (taller.EnlaceStream != null && taller.EnlaceStream != "")
+                                {
+                                    <a class="btn btn-primary boton-ver-stream" target="_blank" href="@taller.EnlaceStream">Ver transmisión</a>
+                                }
+                            </div>
+                            @if (Request.IsAuthenticated)
+                            {
+                                <div class="col">
+                                    <button type="button" class="btn btn-primary boton-ver-stream" data-bs-toggle="modal" data-bs-target="#exampleModal" onclick="actualizarModal('@taller.Titulo','@taller.Fecha')">
+                                        Agregar enlace
+                                    </button>
+
+                                    <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                        <div class="modal-dialog modal-dialog-centered">
+                                            <div class="modal-content">
+                                                <div class="modal-header">
+                                                    <h5 class="modal-title" id="exampleModalLabel">Agregar enlace para la transmisión</h5>
+                                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                                </div>
+                                                <div class="modal-body">
+                                                    @using (Html.BeginForm("EditarEnlace", "Actividad", FormMethod.Post, new { enctype = "multipart/form-data" }))
+                                                    {
+                                                        @Html.AntiForgeryToken()
+
+                                                        <div class="mb-3" style="align-content:center">
+                                                            <label for="enlaceNuevo" class="col-form-label">Enlace:</label><br />
+                                                            <input type="text" id="enlaceNuevo" name="enlaceNuevo">
+                                                        </div>
+                                                        <div class="mb-3" style="display:none">
+                                                            <label for="titulo" class="col-form-label">Titulo:</label>
+                                                            <input type="hidden" id="titulo" name="titulo">
+                                                        </div>
+                                                        <div class="mb-3" style="display:none">
+                                                            <label for="fecha" class="col-form-label">Fecha:</label>
+                                                            <input type="hidden" id="fecha" name="fecha">
+                                                        </div>
+
+                                                        <div class="modal-footer">
+                                                            <button type="button" class="btn btn-primary" style="border-radius:5px" data-bs-dismiss="modal">Cerrar</button>
+                                                            <input type="submit" class="btn btn-primary" style="border-radius:5px" value="Guardar" />
+                                                        </div>
+                                                    }
+                                                </div>
+
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            }
+                        </div>
+                    </div>
+                </div>
+                indice += 1;
+
+            }
+            }
+        </div>
+</body>
+</html>
