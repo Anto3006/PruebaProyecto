@@ -230,10 +230,15 @@
     <Content Include=".editorconfig" />
     <Content Include="imagenes\avanzado.png" />
     <Content Include="imagenes\calendario-inicio1.png" />
+    <Content Include="imagenes\choque.jpg" />
     <Content Include="imagenes\cuestionario.png" />
+    <Content Include="imagenes\fondoGalaxia.png" />
     <Content Include="imagenes\funcionario.png" />
     <Content Include="imagenes\info.png" />
     <Content Include="imagenes\intermedio.png" />
+    <Content Include="imagenes\medallaBronze.png" />
+    <Content Include="imagenes\medallaOro.png" />
+    <Content Include="imagenes\medallaPlata.png" />
     <Content Include="imagenes\planetario-bsas.jpg" />
     <Content Include="imagenes\principiante.png" />
     <Content Include="imagenes\reloj-inicio1.png" />
@@ -241,6 +246,7 @@
     <Content Include="imagenes\logologin.png" />
     <Content Include="imagenes\relojito.png" />
     <Content Include="imagenes\streamEjemplo.jpg" />
+    <Content Include="imagenes\weco.jpg" />
     <Content Include="Noticias\20210823Agujeros-negros-primitivos.json" />
     <Content Include="Noticias\20210825Asi-sera-nuestra-colision.JSON" />
     <Content Include="Noticias\20210906El-Fin-de-la-estacion-espacial-internacional.JSON" />
